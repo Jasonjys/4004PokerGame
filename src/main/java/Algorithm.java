@@ -19,6 +19,13 @@ public class Algorithm {
                 && hand.get(4).getRank() == 13;
     }
 
+    public static Result isRoyalFlush (List<Card> hand) {
+        if (isFlush(hand).isMatched() && isTenToFourteen(hand)) {
+            return new Result(true, hand.get(0), null);
+        }
+        return new Result(false, null, null);
+    }
+
     public static Result isFlush (List<Card> hand) {
         HashSet<String> set = buildSuitSet(hand);
         Collections.sort(hand, new CardSorter());
