@@ -128,6 +128,15 @@ public class Algorithm {
                 && hand.get(4).getRank() == 13;
     }
 
+    public static Boolean isStraightOrBetter (List<Card> hand) {
+        return Algorithm.isRoyalFlush(hand).isMatched()
+                || Algorithm.isStraightFlush(hand).isMatched()
+                || Algorithm.isFourOfAKind(hand).isMatched()
+                || Algorithm.isFullHouse(hand).isMatched()
+                || Algorithm.isFlush(hand).isMatched()
+                || Algorithm.isStraight(hand).isMatched();
+    }
+
     public static Result isRoyalFlush (List<Card> hand) {
         if (isFlush(hand).isMatched() && isTenToFourteen(hand)) {
             return new Result(true, hand.get(0), null);
