@@ -359,4 +359,35 @@ public class Algorithm {
 
         return new Result(false, null, null);
     }
+
+    public static Result isThreeCardsInSequence (List<Card> hand) {
+        if (hand.get(0).getRank() == 1
+                && hand.get(3).getRank() == 12
+                && hand.get(4).getRank() == 13) {
+
+            List<Card> discardCards = new ArrayList <Card>();
+            discardCards.add(hand.get(1));
+            discardCards.add(hand.get(2));
+            return new Result(true, null, discardCards);
+        }
+
+        List<Card> discardCards = new ArrayList <Card>();
+        for (Card card : hand) {
+            discardCards.add(card);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (isInSequence(hand.subList(i, i + 3)) && !isOneCardAwayFromStraight(hand).isMatched()) {
+                for (int j = i; j < i + 3; j++) {
+                    discardCards.remove(hand.get(j));
+                }
+                break;
+            }
+        }
+
+        if (discardCards.size() == 2) {
+            return new Result(true, null, discardCards);
+        }
+        return new Result(false, null, null);
+    }
 }
