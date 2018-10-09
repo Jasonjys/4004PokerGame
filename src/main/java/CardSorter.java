@@ -6,6 +6,7 @@ class CardSorter implements Comparator<Card> {
         if (a.getRank() == b.getRank()) {
             return a.getSuit().compareTo(b.getSuit());
         }
+
         return a.getRank() - b.getRank();
     }
 }
