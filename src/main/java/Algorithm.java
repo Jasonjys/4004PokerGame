@@ -341,4 +341,22 @@ public class Algorithm {
         }
         return new Result(false, null, null);
     }
+
+    public static Result isThreeOfASuit (List<Card> hand) {
+        HashMap<String, Integer> map = buildSuitMap(hand);
+        List<Card> discardCards = new ArrayList <Card>();
+
+        for (String key : map.keySet()) {
+            if (map.get(key) == 3) {
+                for (Card card : hand) {
+                    if (!card.getSuit().equals(key)) {
+                        discardCards.add(card);
+                    }
+                }
+                return new Result(true, null, discardCards);
+            }
+        }
+
+        return new Result(false, null, null);
+    }
 }
