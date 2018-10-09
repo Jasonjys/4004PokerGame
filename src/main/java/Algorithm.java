@@ -68,6 +68,46 @@ public class Algorithm {
         return true;
     }
 
+    private static HashSet possibleSequenceSet (int startingNum) {
+        HashSet<Integer> possibleSequence = new HashSet<Integer>();
+
+        for (int i = startingNum; i < startingNum + 5; i++) {
+            possibleSequence.add(i);
+        }
+
+        return possibleSequence;
+    }
+
+    private static HashSet tenToFourteenSet () {
+        HashSet<Integer> possibleSequence = new HashSet<Integer>();
+
+        for (int i = 10; i < 15; i++) {
+            if (i == 14) {
+                possibleSequence.add(1);
+            } else {
+                possibleSequence.add(i);
+            }
+        }
+        return possibleSequence;
+    }
+
+    private static Result isOneCardAwayFromTenToFourTeen (List<Card> hand) {
+        HashSet<Integer> sequence = tenToFourteenSet();
+        List<Card> discardCards = new ArrayList <Card>();
+
+        for (Card card : hand) {
+            if (sequence.contains(card.getRank())) {
+                sequence.remove(card.getRank());
+            } else {
+                discardCards.add(card);
+            }
+        }
+
+        return sequence.size() == 1
+                ? new Result(true, null, discardCards)
+                : new Result(false, null, null);
+    }
+
     public static boolean isTenToFourteen (List<Card> hand) {
         return hand.get(0).getRank() == 1
                 && hand.get(1).getRank() == 10
@@ -238,6 +278,44 @@ public class Algorithm {
                         }
                     }
                 }
+            }
+        }
+        return new Result(false, null, null);
+    }
+
+    public static Result isOneCardAwayFromStraight (List<Card> hand) {
+        if (!isStraight(hand).isMatched()) {
+            if (isOneCardAwayFromTenToFourTeen(hand).isMatched()) {
+                return isOneCardAwayFromTenToFourTeen(hand);
+            }
+
+            HashSet<Integer> possibleSequence1 = possibleSequenceSet(hand.get(0).getRank());
+            HashSet<Integer> possibleSequence2 = possibleSequenceSet(hand.get(1).getRank());
+
+            List<Card> discardCards1 = new ArrayList<Card>();
+            List<Card> discardCards2 = new ArrayList<Card>();
+
+            for (int i = 0; i < 5; i++) {
+                Card card = hand.get(hand.size() - 1 - i);
+                int currentCardRank = card.getRank();
+                if (possibleSequence1.contains(currentCardRank)) {
+                    possibleSequence1.remove(currentCardRank);
+                } else {
+                    discardCards1.add(card);
+                }
+                if (possibleSequence2.contains(currentCardRank)) {
+                    possibleSequence2.remove(currentCardRank);
+                } else {
+                    discardCards2.add(card);
+                }
+            }
+
+            if (possibleSequence1.size() == 1 && possibleSequence2.size() == 1) {
+                return new Result(true, null, discardCards2);
+            } else if (possibleSequence1.size() == 1) {
+                return new Result(true, null, discardCards1);
+            } else if (possibleSequence2.size() == 1) {
+                return new Result(true, null, discardCards2);
             }
         }
         return new Result(false, null, null);
