@@ -137,4 +137,21 @@ public class Algorithm {
     }
 
     public static Result isThreeOfAKind (List<Card> hand) { return isXOfAKind(hand, 3); }
+
+    public static Result isTwoPair(List<Card> hand) {
+        HashMap<Integer, Integer> map = buildRankMap(hand);
+        List<Card> cardsWithSameRank = new ArrayList<Card>();
+
+        if (map.containsValue(2) && map.size() == 3) {
+            for (Card card : hand) {
+                if (map.get(card.getRank()) == 2) {
+                    cardsWithSameRank.add(card);
+                }
+            }
+
+            Collections.sort(cardsWithSameRank, new CardSorter());
+            return new Result(true, cardsWithSameRank.get(cardsWithSameRank.size() - 1), null);
+        }
+        return new Result(false, null, null);
+    }
 }
