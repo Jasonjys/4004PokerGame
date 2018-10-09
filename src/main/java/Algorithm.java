@@ -206,4 +206,22 @@ public class Algorithm {
             return new Result(false, null, null);
         }
     }
+
+    public static Result isOneCardAwayFromFullHouse (List<Card> hand) {
+        if (isTwoPair(hand).isMatched() || isThreeOfAKind(hand).isMatched()) {
+            HashMap<Integer, Integer> map = buildRankMap(hand);
+            List<Card> discardCards = new ArrayList <Card>();
+            for(Integer key : map.keySet()){
+                if(map.get(key).equals(1)) {
+                    for (Card card : hand) {
+                        if (card.getRank() == key) {
+                            discardCards.add(card);
+                            return new Result(true, null, discardCards);
+                        }
+                    }
+                }
+            }
+        }
+        return new Result(false, null, null);
+    }
 }
