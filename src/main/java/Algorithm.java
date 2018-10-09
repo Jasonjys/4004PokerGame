@@ -57,6 +57,17 @@ public class Algorithm {
         return new Result(false, null, null);
     }
 
+    private static boolean isInSequence (List<Card> hand) {
+        for (int i = 0; i < hand.size() - 1; i++) {
+            int currentRank = hand.get(i).getRank();
+            int nextRank = hand.get(i + 1).getRank();
+            if (currentRank + 1 != nextRank) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isTenToFourteen (List<Card> hand) {
         return hand.get(0).getRank() == 1
                 && hand.get(1).getRank() == 10
@@ -110,6 +121,16 @@ public class Algorithm {
             if (isTenToFourteen(hand) || hand.get(0).getRank() == 1) {
                 return new Result(true, hand.get(0), null);
             }
+            return new Result(true, hand.get(4), null);
+        }
+        return new Result(false, null, null);
+    }
+
+    public static Result isStraight (List<Card> hand) {
+        if (isTenToFourteen(hand)) {
+            return new Result(true, hand.get(0), null);
+        }
+        if (isInSequence(hand)) {
             return new Result(true, hand.get(4), null);
         }
         return new Result(false, null, null);
