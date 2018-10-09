@@ -11,6 +11,18 @@ public class Algorithm {
         return set;
     }
 
+    private static HashMap<String, Integer> buildSuitMap (List<Card> hand) {
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Card card:hand) {
+            if (!map.containsKey(card.getSuit())) {
+                map.put(card.getSuit(), 1);
+            } else {
+                map.put(card.getSuit(), map.get(card.getSuit()) + 1);
+            }
+        }
+        return map;
+    }
+
     private static HashMap<Integer, Integer> buildRankMap (List<Card> hand) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
@@ -92,10 +104,9 @@ public class Algorithm {
     }
 
     public static Result isFlush (List<Card> hand) {
-        HashSet<String> set = buildSuitSet(hand);
-        Collections.sort(hand, new CardSorter());
+        HashMap<String, Integer> map = buildSuitMap(hand);
 
-        if (set.size() == 1) {
+        if (map.size() == 1) {
             if (isTenToFourteen(hand) || hand.get(0).getRank() == 1) {
                 return new Result(true, hand.get(0), null);
             }
