@@ -14,8 +14,9 @@ public class AcceptanceTest {
     @Before
     public void setUp () {
         try {
+            String filePath = new File("").getAbsolutePath();
             Scanner scanner = new Scanner(new BufferedReader(new FileReader(
-                    "/Users/Jason/projects/simplePokerGame/input.txt")));
+                    filePath + "/input.txt")));
             int round = 0;
             while (scanner.hasNextLine()) {
                 PokerGame game = new PokerGame(scanner.nextLine());
