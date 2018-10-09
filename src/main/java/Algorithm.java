@@ -190,4 +190,20 @@ public class Algorithm {
         }
         return new Result(false, null, null);
     }
+
+    public static Result isOneCardAwayFromStraightFlush (List<Card> hand) {
+        if (isOneCardAwayFromRoyalFlush(hand).isMatched()) {
+            return isOneCardAwayFromRoyalFlush(hand);
+        } else if (isOneCardAwayFromFlush(hand).isMatched() && isOneCardAwayFromStraight(hand).isMatched()) {
+            String missingSuit = isOneCardAwayFromFlush(hand).getDiscardCards().get(0).getSuit();
+            int missingRank = isOneCardAwayFromStraight(hand).getDiscardCards().get(0).getRank();
+            return isOneCardAwayFromSForRF (missingSuit, missingRank, hand);
+        } else if (isFlush(hand).isMatched() && isOneCardAwayFromStraight(hand).isMatched()) {
+            return new Result(true, null, isOneCardAwayFromStraight(hand).getDiscardCards());
+        } else if (isOneCardAwayFromFlush(hand).isMatched() && isStraight(hand).isMatched()) {
+            return new Result(true, null, isOneCardAwayFromFlush(hand).getDiscardCards());
+        } else {
+            return new Result(false, null, null);
+        }
+    }
 }
