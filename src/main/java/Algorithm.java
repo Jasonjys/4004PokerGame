@@ -135,4 +135,6 @@ public class Algorithm {
         }
         return new Result(false, null, null);
     }
+
+    public static Result isThreeOfAKind (List<Card> hand) { return isXOfAKind(hand, 3); }
 }
