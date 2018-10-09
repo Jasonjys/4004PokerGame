@@ -11,6 +11,19 @@ public class Algorithm {
         return set;
     }
 
+    private static HashMap<Integer, Integer> buildRankMap (List<Card> hand) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        for (Card card:hand) {
+            if (!map.containsKey(card.getRank())) {
+                map.put(card.getRank(), 1);
+            } else {
+                map.put(card.getRank(), map.get(card.getRank()) + 1);
+            }
+        }
+        return map;
+    }
+
     private static Result isXOfAKind (List<Card> hand, int x) {
         HashMap<Integer, Integer> map = buildRankMap(hand);
         List<Card> cardsWithSameRank = new ArrayList <Card>();
@@ -60,6 +73,22 @@ public class Algorithm {
 
     public static Result isFourOfAKind (List<Card> hand) {
         return isXOfAKind(hand, 4);
+    }
+
+    public static Result isFullHouse (List<Card> hand) {
+        HashMap<Integer, Integer> map = buildRankMap(hand);
+        List<Card> cardsWithSameRank = new ArrayList<Card>();
+
+        if (map.containsValue(3) && map.size() == 2) {
+            for (Card card : hand) {
+                if (map.get(card.getRank()) == 3) {
+                    cardsWithSameRank.add(card);
+                }
+            }
+            Collections.sort(cardsWithSameRank, new CardSorter());
+            return new Result(true, cardsWithSameRank.get(cardsWithSameRank.size() - 1), null);
+        }
+        return new Result(false, null, null);
     }
 
     public static Result isFlush (List<Card> hand) {
