@@ -177,4 +177,17 @@ public class Algorithm {
 
         return new Result(false, null, null);
     }
+
+    public static Result isOneCardAwayFromRoyalFlush (List<Card> hand) {
+        List<Card> discardCards = new ArrayList <Card>();
+        if (isOneCardAwayFromFlush(hand).isMatched() && isTenToFourteen(hand)) {
+            discardCards.add(isOneCardAwayFromFlush(hand).getDiscardCards().get(0));
+            return new Result(true, null, discardCards);
+        } else if (isOneCardAwayFromFlush(hand).isMatched() && isOneCardAwayFromTenToFourTeen(hand).isMatched()) {
+            String missingSuit = isOneCardAwayFromFlush(hand).getDiscardCards().get(0).getSuit();
+            int missingRank = isOneCardAwayFromTenToFourTeen(hand).getDiscardCards().get(0).getRank();
+            return isOneCardAwayFromSForRF(missingSuit, missingRank, hand);
+        }
+        return new Result(false, null, null);
+    }
 }
