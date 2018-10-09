@@ -11,6 +11,27 @@ public class Algorithm {
         return set;
     }
 
+    private static Result isXOfAKind (List<Card> hand, int x) {
+        HashMap<Integer, Integer> map = buildRankMap(hand);
+        List<Card> cardsWithSameRank = new ArrayList <Card>();
+        List<Card> discardCards = new ArrayList <Card>();
+
+        if (map.containsValue(x) && map.size() == (6 - x)) {
+            for (Card card : hand) {
+                if (map.get(card.getRank()) == x) {
+                    cardsWithSameRank.add(card);
+                } else {
+                    discardCards.add(card);
+                }
+            }
+            if (x == 2) {
+                return new Result(true, cardsWithSameRank.get(cardsWithSameRank.size() - 1), discardCards);
+            }
+            return new Result(true, cardsWithSameRank.get(cardsWithSameRank.size() - 1), null);
+        }
+        return new Result(false, null, null);
+    }
+
     public static boolean isTenToFourteen (List<Card> hand) {
         return hand.get(0).getRank() == 1
                 && hand.get(1).getRank() == 10
@@ -35,6 +56,10 @@ public class Algorithm {
         }
 
         return new Result(false, null, null);
+    }
+
+    public static Result isFourOfAKind (List<Card> hand) {
+        return isXOfAKind(hand, 4);
     }
 
     public static Result isFlush (List<Card> hand) {
