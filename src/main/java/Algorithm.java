@@ -26,6 +26,17 @@ public class Algorithm {
         return new Result(false, null, null);
     }
 
+    public static Result isStraightFlush (List<Card> hand) {
+        if (isStraight(hand).isMatched() && isFlush(hand).isMatched()) {
+            if (isTenToFourteen(hand)) {
+                return new Result(true, hand.get(0), null);
+            }
+            return new Result(true, hand.get(4), null);
+        }
+
+        return new Result(false, null, null);
+    }
+
     public static Result isFlush (List<Card> hand) {
         HashSet<String> set = buildSuitSet(hand);
         Collections.sort(hand, new CardSorter());
