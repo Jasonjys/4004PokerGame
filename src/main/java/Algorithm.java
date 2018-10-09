@@ -224,4 +224,22 @@ public class Algorithm {
         }
         return new Result(false, null, null);
     }
+
+    public static Result isOneCardAwayFromFlush (List<Card> hand) {
+        HashMap<String, Integer> map = buildSuitMap(hand);
+        List<Card> discardCards = new ArrayList <Card>();
+        if (map.size() == 2) {
+            for (String key : map.keySet() ) {
+                if (map.get(key) == 1) {
+                    for (Card card : hand) {
+                        if (card.getSuit().equals(key)) {
+                            discardCards.add(card);
+                            return new Result(true, null, discardCards);
+                        }
+                    }
+                }
+            }
+        }
+        return new Result(false, null, null);
+    }
 }
