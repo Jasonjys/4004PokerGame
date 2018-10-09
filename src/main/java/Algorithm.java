@@ -108,6 +108,18 @@ public class Algorithm {
                 : new Result(false, null, null);
     }
 
+    private static Result isOneCardAwayFromSForRF (String missingSuit, int missingRank, List<Card> hand) {
+        List<Card> discardCards = new ArrayList <Card>();
+
+        for (Card card : hand) {
+            if (card.getSuit().equals(missingSuit) && card.getRank() == missingRank) {
+                discardCards.add(card);
+                return new Result(true, null, discardCards);
+            }
+        }
+        return new Result(false, null, null);
+    }
+
     public static boolean isTenToFourteen (List<Card> hand) {
         return hand.get(0).getRank() == 1
                 && hand.get(1).getRank() == 10
