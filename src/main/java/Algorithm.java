@@ -158,4 +158,23 @@ public class Algorithm {
     public static Result isOnePair (List<Card> hand) {
         return isXOfAKind(hand, 2);
     }
+
+    public static Result isHighCard (List<Card> hand) {
+        HashMap<Integer, Integer> map = buildRankMap(hand);
+        if (!isFlush(hand).isMatched() && !isStraight(hand).isMatched() && map.size() == 5) {
+            List<Card> discardCards = new ArrayList <Card>();
+            if (hand.get(0).getRank() == 1) {
+                discardCards.add(hand.get(1));
+                discardCards.add(hand.get(2));
+                discardCards.add(hand.get(3));
+                return new Result(true, hand.get(0), discardCards);
+            }
+            discardCards.add(hand.get(0));
+            discardCards.add(hand.get(1));
+            discardCards.add(hand.get(2));
+            return new Result(true, hand.get(4), discardCards);
+        }
+
+        return new Result(false, null, null);
+    }
 }
