@@ -3,14 +3,6 @@ import java.util.*;
 public class Algorithm {
     public Algorithm() {}
 
-    private static HashSet<String> buildSuitSet (List<Card> hand) {
-        HashSet<String> set = new HashSet<String>();
-        for(Card card:hand) {
-            set.add(card.getSuit());
-        }
-        return set;
-    }
-
     private static HashMap<String, Integer> buildSuitMap (List<Card> hand) {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         for (Card card:hand) {
