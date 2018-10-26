@@ -1,10 +1,12 @@
-package com.comp4004;
+package acceptance;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.jupiter.api.*;
+import com.comp4004.PokerGame;
+
 import java.io.*;
 import java.util.*;
 
