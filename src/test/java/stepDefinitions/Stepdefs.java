@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 
 import org.junit.jupiter.api.*;
 
-public class PokerGameStepdefs {
+public class Stepdefs {
     PokerGame game;
 
     @Given("^Create a Poker Game Play$")
