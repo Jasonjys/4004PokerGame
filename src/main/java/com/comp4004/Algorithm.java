@@ -1,3 +1,5 @@
+package com.comp4004;
+
 import java.util.*;
 
 public class Algorithm {

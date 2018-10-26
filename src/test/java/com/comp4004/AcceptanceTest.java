@@ -1,3 +1,5 @@
+package com.comp4004;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,7 +22,7 @@ public class AcceptanceTest {
             int round = 0;
             while (scanner.hasNextLine()) {
                 PokerGame game = new PokerGame(scanner.nextLine());
-                game.run(round);
+                game.play(round);
                 round++;
             }
             String[] lines = systemOutRule.getLog().split("\\r?\\n");

@@ -1,3 +1,5 @@
+package com.comp4004;
+
 import java.util.*;
 
 public class Player {
@@ -113,13 +115,14 @@ public class Player {
 
     public List<Card> exchangeCards (List<Card> discardCards, Queue<Card> deck) {
         System.out.println("Replacement(s): " + deck.toString());
+
+        if (deck.size() == 0) {
+            return discardCards;
+        }
+
         for (Card card : discardCards) {
             getHand().remove(card);
-            if (deck.size() == 0) {
-                return discardCards;
-            } else {
-                addCard(deck.remove());
-            }
+            addCard(deck.remove());
         }
         return discardCards;
     }

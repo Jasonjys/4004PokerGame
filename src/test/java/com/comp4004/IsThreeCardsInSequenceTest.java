@@ -1,3 +1,5 @@
+package com.comp4004;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -7,7 +9,7 @@ public class IsThreeCardsInSequenceTest {
     private final PokerGame game = new PokerGame();
 
     @ParameterizedTest
-    @ValueSource(strings = {"H7 S8 S9 S2 SQ", "DA D2 DK D8 C3", "H10 H5 SJ HQ S2", "S3 SK DQ S4 SA"})
+    @ValueSource(strings = {"H7 S8 C9 S2 DQ", "H10 H5 SJ HQ S2", "S3 CK DQ S4 SA"})
     void threeCardsInSequenceShouldPass(String threeCardsInSequence) {
         game.setPlayerHand(0, threeCardsInSequence);
         Player aip = game.getPlayer(0);

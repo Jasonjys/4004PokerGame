@@ -1,3 +1,5 @@
+package com.comp4004;
+
 public class Card {
     private String suit;
     private int rank;

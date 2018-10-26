@@ -1,3 +1,5 @@
+package com.comp4004;
+
 import java.util.*;
 import java.io.*;
 
@@ -10,25 +12,28 @@ public class PokerGame {
         this.deck = new LinkedList <Card>();
         this.playerList.add(new Player());
         this.playerList.add(new Player());
-
-        String[] cardArray = cards.split("\\s+");
-        for (String card : cardArray) {
-            this.deck.add(new Card(card));
-        }
-        for (int i = 0; i < 10; i++) {
-            if (i < 5) {
-                this.playerList.get(0).addCard(this.deck.remove());
-            } else {
-                this.playerList.get(1).addCard(this.deck.remove());
-            }
-        }
+        setUpCards(cards);
     }
 
     public PokerGame () {
         this.playerList = new ArrayList<Player>();
-        this.playerList.add(new Player());
-        this.playerList.add(new Player());
         this.deck = new LinkedList <Card>();
+        this.playerList.add(new Player());
+        this.playerList.add(new Player());
+    }
+
+    public void setUpCards (String cards) {
+        String[] cardArray = cards.split("\\s+");
+        for (String card : cardArray) {
+            getDeck().add(new Card(card));
+        }
+        for (int i = 0; i < 10; i++) {
+            if (i < 5) {
+                getPlayer(0).addCard(getDeck().remove());
+            } else {
+                getPlayer(1).addCard(getDeck().remove());
+            }
+        }
     }
 
     public Queue<Card> getDeck () { return this.deck; }
@@ -45,9 +50,21 @@ public class PokerGame {
         if (cards.length() == 0) {
             return;
         }
+        getPlayer(index).getHand().clear();
         String[] cardArray = cards.split("\\s+");
         for (String card :  cardArray) {
             getPlayer(index).addCard(new Card(card));
+        }
+    }
+
+    public void setDeck (String cards) {
+        if (cards.length() == 0) {
+            return;
+        }
+        getDeck().clear();
+        String[] cardArray = cards.split("\\s+");
+        for (String card :  cardArray) {
+            getDeck().add(new Card(card));
         }
     }
 
@@ -126,42 +143,46 @@ public class PokerGame {
         else aip.setWon(true);
     }
 
-    private void winner () {
-        compareScore();
-        if (getPlayer(0).getWon()) {
-            System.out.println("Opponent won!");
-        } else {
-            System.out.println("AIP won!");
-        }
-    }
-
-    public void run (int round) {
+    private void displayHands () {
         Player opponent = getPlayer(0);
         Player aip = getPlayer(1);
-        System.out.println("Game Round " + round);
         System.out.println("=============================");
-        System.out.print("opponent: ");
-        System.out.println(opponent.getHand().toString());
-        System.out.print("AIP:      ");
-        System.out.println(aip.getHand().toString());
+        System.out.println("opponent: " + opponent.getHand().toString());
+        System.out.println("AIP:      " + aip.getHand().toString());
+    }
 
-        System.out.println("Card(s) to discard: " + aip.exchangeCards(aip.discardCards(), getDeck()));
+    private String Winner () {
+        compareScore();
+        if (getPlayer(0).getWon()) {
+            return "Opponent won!";
+        }
+        return "AIP won!";
+    }
+
+    public List<String> play (int round) {
+        Player aip = getPlayer(1);
+        List<String> results = new ArrayList <String>();
+        System.out.println("Game Round " + round);
+        displayHands();
+        String discardCards = aip.exchangeCards(aip.discardCards(), getDeck()).toString();
+        results.add(discardCards);
+        System.out.println("Card(s) to discard: " + discardCards);
         System.out.println("After AIP exchanged its cards");
-        System.out.println("=============================");
-        System.out.print("opponent: ");
-        System.out.println(opponent.getHand().toString());
-        System.out.print("AIP:      ");
-        System.out.println(aip.getHand().toString());
-        winner();
+        displayHands();
+        System.out.println(Winner());
+        results.add(Winner());
         System.out.println("###################################");
+
+        return results;
     }
 
     public static void main (String args[]) {
         Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
         int round = 0;
         while (scanner.hasNextLine()) {
-            PokerGame game = new PokerGame(scanner.nextLine());
-            game.run(round);
+            PokerGame game = new PokerGame();
+            game.setUpCards(scanner.nextLine());
+            game.play(round);
             round++;
         }
         scanner.close();
