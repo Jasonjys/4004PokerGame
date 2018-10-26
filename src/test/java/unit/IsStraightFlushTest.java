@@ -1,9 +1,11 @@
-package com.comp4004;
+package unit;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.util.*;
+import com.comp4004.*;
+
 
 public class IsStraightFlushTest {
     private final PokerGame game = new PokerGame();

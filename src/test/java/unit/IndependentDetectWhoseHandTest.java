@@ -1,5 +1,7 @@
-package com.comp4004;
+package unit;
 
+import com.comp4004.Player;
+import com.comp4004.PokerGame;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
