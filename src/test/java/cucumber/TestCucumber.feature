@@ -1,292 +1,66 @@
 Feature: PokerGamePlay
 
-  Scenario Outline: royal flush beats all
+  Scenario Outline: <Player1> has <Hand1> beats <Player2> has <Hand2>
     Given Create a Poker Game Play
     When "<Player1>" has "<Hand1>"
     And "<Player2>" has "<Hand2>"
     Then winner is "<Winner>"
 
     Examples:
-      | Player1 |    Hand1     | Player2 |     Hand2      | Winner |
-      |   HTB   | royal flush  |   AIP   | straight flush |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  4 of a kind   |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  full house    |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  flush         |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  straight      |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  3 of a kind   |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  2 pairs       |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  1 pair        |  HTB   |
-      |   HTB   | royal flush  |   AIP   |  high card     |  HTB   |
+      | Player1 | Hand1          | Player2 | Hand2          | Winner |
+      | HTB     | royal flush    | AIP     | straight flush | HTB    |
+      | HTB     | royal flush    | AIP     | 4 of a kind    | HTB    |
+      | HTB     | royal flush    | AIP     | full house     | HTB    |
+      | HTB     | royal flush    | AIP     | flush          | HTB    |
+      | HTB     | royal flush    | AIP     | straight       | HTB    |
+      | HTB     | royal flush    | AIP     | 3 of a kind    | HTB    |
+      | HTB     | royal flush    | AIP     | 2 pairs        | HTB    |
+      | HTB     | royal flush    | AIP     | 1 pair         | HTB    |
+      | HTB     | royal flush    | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats straight flush
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "C3 CA C4 C5 C2"
-    Then AIP loses
+      | HTB     | straight flush | AIP     | 4 of a kind    | HTB    |
+      | HTB     | straight flush | AIP     | full house     | HTB    |
+      | HTB     | straight flush | AIP     | flush          | HTB    |
+      | HTB     | straight flush | AIP     | straight       | HTB    |
+      | HTB     | straight flush | AIP     | 3 of a kind    | HTB    |
+      | HTB     | straight flush | AIP     | 2 pairs        | HTB    |
+      | HTB     | straight flush | AIP     | 1 pair         | HTB    |
+      | HTB     | straight flush | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats 4 of a kind
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "C3 D3 H3 S3 C2"
-    Then AIP loses
+      | HTB     | 4 of a kind    | AIP     | full house     | HTB    |
+      | HTB     | 4 of a kind    | AIP     | flush          | HTB    |
+      | HTB     | 4 of a kind    | AIP     | straight       | HTB    |
+      | HTB     | 4 of a kind    | AIP     | 3 of a kind    | HTB    |
+      | HTB     | 4 of a kind    | AIP     | 2 pairs        | HTB    |
+      | HTB     | 4 of a kind    | AIP     | 1 pair         | HTB    |
+      | HTB     | 4 of a kind    | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats full house
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "CA D5 H5 DA CA"
-    Then AIP loses
+      | HTB     | full house     | AIP     | flush          | HTB    |
+      | HTB     | full house     | AIP     | straight       | HTB    |
+      | HTB     | full house     | AIP     | 3 of a kind    | HTB    |
+      | HTB     | full house     | AIP     | 2 pairs        | HTB    |
+      | HTB     | full house     | AIP     | 1 pair         | HTB    |
+      | HTB     | full house     | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats flush
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "D8 D7 D4 DJ DK"
-    Then AIP loses
+      | HTB     | flush          | AIP     | straight       | HTB    |
+      | HTB     | flush          | AIP     | 3 of a kind    | HTB    |
+      | HTB     | flush          | AIP     | 2 pairs        | HTB    |
+      | HTB     | flush          | AIP     | 1 pair         | HTB    |
+      | HTB     | flush          | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats straight
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "CK DJ HQ CA D10"
-    Then AIP loses
+      | HTB     | straight       | AIP     | 3 of a kind    | HTB    |
+      | HTB     | straight       | AIP     | 2 pairs        | HTB    |
+      | HTB     | straight       | AIP     | 1 pair         | HTB    |
+      | HTB     | straight       | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats 3 of a kind
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "C8 D7 H8 D6 S8"
-    Then AIP loses
+      | HTB     | 3 of a kind    | AIP     | 2 pairs        | HTB    |
+      | HTB     | 3 of a kind    | AIP     | 1 pair         | HTB    |
+      | HTB     | 3 of a kind    | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "C8 D7 H6 D6 S8"
-    Then AIP loses
+      | HTB     | 2 pairs        | AIP     | 1 pair         | HTB    |
+      | HTB     | 2 pairs        | AIP     | high card      | HTB    |
 
-  Scenario: royal flush beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "C8 D7 H2 D6 S8"
-    Then AIP loses
-
-  Scenario: royal flush beats high card
-    Given Create a Poker Game Play
-    When HTB has "S10 SK SA SQ SJ"
-    And AIP has "S4 SJ D9 HA C2"
-    Then AIP loses
-
-  Scenario: straight flush beats 4 of a kind
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "C3 D3 H3 S3 C8"
-    Then AIP loses
-
-  Scenario: straight flush beats full house
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "S7 D7 CK C7 DK"
-    Then AIP loses
-
-  Scenario: straight flush beats flush
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "D8 D7 D4 DJ DK"
-    Then AIP loses
-
-  Scenario: straight flush beats straight
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "C5 D7 H9 D6 S8"
-    Then AIP loses
-
-  Scenario: straight flush beats 3 of a kind
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "C8 D7 H8 D6 S8"
-    Then AIP loses
-
-  Scenario: straight flush beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "C8 D7 H6 D6 S8"
-    Then AIP loses
-
-  Scenario: straight flush beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: straight flush beats high card
-    Given Create a Poker Game Play
-    When HTB has "S9 S10 SJ SQ SK"
-    And AIP has "S4 DJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats full house
-    Given Create a Poker Game Play
-    When HTB has "D2 S2 D6 S2 H2"
-    And AIP has "S7 D7 SK C7 DK"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats flush
-    Given Create a Poker Game Play
-    When HTB has "DQ CQ D6 SQ HQ"
-    And AIP has "D8 D7 D4 DJ DK"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats straight
-    Given Create a Poker Game Play
-    When HTB has "DQ CQ D6 SQ HQ"
-    And AIP has "C5 D7 H9 S6 S8"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats 3 of a kind
-    Given Create a Poker Game Play
-    When HTB has "DQ CQ D6 SQ HQ"
-    And AIP has "C8 D7 H8 S6 S8"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "DQ SQ D6 CQ HQ"
-    And AIP has "C8 D7 H6 S6 S8"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "DQ SQ D6 CQ HQ"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: 4 of a kind beats high card
-    Given Create a Poker Game Play
-    When HTB has "DQ SQ D6 CQ HQ"
-    And AIP has "S4 SJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: full house beats flush
-    Given Create a Poker Game Play
-    When HTB has "CA D5 H5 DA CA"
-    And AIP has "D8 D7 D4 DJ DK"
-    Then AIP loses
-
-  Scenario: full house beats straight
-    Given Create a Poker Game Play
-    When HTB has "CA D5 H5 DA CA"
-    And AIP has "C5 H7 H9 D6 S8"
-    Then AIP loses
-
-  Scenario: full house beats 3 of a kind
-    Given Create a Poker Game Play
-    When HTB has "S7 D7 SK C7 DK"
-    And AIP has "C8 H7 H8 D6 S8"
-    Then AIP loses
-
-  Scenario: full house beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "S7 D7 SK C7 DK"
-    And AIP has "C8 H7 H6 D6 S8"
-    Then AIP loses
-
-  Scenario: full house beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "S7 D7 SK C7 DK"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: full house beats high card
-    Given Create a Poker Game Play
-    When HTB has "S7 D7 SK C7 DK"
-    And AIP has "S4 SJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: flush beats straight
-    Given Create a Poker Game Play
-    When HTB has "D8 D7 D4 DJ DK"
-    And AIP has "CK DJ HQ CA D10"
-    Then AIP loses
-
-  Scenario: flush beats 3 of a kind
-    Given Create a Poker Game Play
-    When HTB has "D8 D7 D4 DJ DK"
-    And AIP has "C8 H7 H8 D6 S8"
-    Then AIP loses
-
-  Scenario: flush beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "D8 D7 D4 DJ DK"
-    And AIP has "C8 H7 H6 D6 S8"
-    Then AIP loses
-
-  Scenario: flush beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "D8 D7 D4 DJ DK"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: flush beats high card
-    Given Create a Poker Game Play
-    When HTB has "D8 D7 D4 DJ DK"
-    When AIP has "S4 SJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: straight beats 3 of a kind
-    Given Create a Poker Game Play
-    When HTB has "C5 H7 H9 D6 S8"
-    And AIP has "C8 H2 H8 S6 D8"
-    Then AIP loses
-
-  Scenario: straight beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "C5 H7 H9 D6 S8"
-    And AIP has "C8 H2 H6 S6 D8"
-    Then AIP loses
-
-  Scenario: straight beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "C5 H7 H9 D6 S8"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: straight beats high card
-    Given Create a Poker Game Play
-    When HTB has "C5 H7 H9 D6 S8"
-    And AIP has "S4 SJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: 3 of a kind beats 2 pairs
-    Given Create a Poker Game Play
-    When HTB has "C8 H7 H8 D6 S8"
-    And AIP has "C10 H2 H6 S6 D10"
-    Then AIP loses
-
-  Scenario: 3 of a kind beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "C8 H7 H8 D6 S8"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: 3 of a kind beats high card
-    Given Create a Poker Game Play
-    When HTB has "C8 H7 H8 D6 S8"
-    And AIP has "S4 SJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: 2 paris beats 1 pair
-    Given Create a Poker Game Play
-    When HTB has "C8 H7 H6 D6 S8"
-    And AIP has "S4 SA D9 DA C2"
-    Then AIP loses
-
-  Scenario: 2 paris beats high card
-    Given Create a Poker Game Play
-    When HTB has "C8 H7 H6 D6 S8"
-    And AIP has "S4 SJ D9 SA C2"
-    Then AIP loses
-
-  Scenario: 1 pair beats high card
-    Given Create a Poker Game Play
-    When HTB has "C8 D7 H2 D6 S8"
-    And AIP has "S4 SJ D9 HA C2"
-    Then AIP loses
+      | HTB     | 1 pair         | AIP     | high card      | HTB    |
 
   Scenario: AIP has a royal flush, it does not exchange any of its cards
     Given Create a Poker Game Play

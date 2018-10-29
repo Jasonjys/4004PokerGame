@@ -13,6 +13,8 @@ public class StepDefinitions {
         switch(combination) {
             case "royal flush":
                 return "S10 SK SA SQ SJ";
+            case "straight flush":
+                return "H9 H10 HJ HQ HK";
             case "4 of a kind":
                 return "C3 D3 H3 S3 C2";
             case "full house":
@@ -20,13 +22,15 @@ public class StepDefinitions {
             case "flush":
                 return "D8 D7 D4 D7 DK";
             case "straight":
-                return "CK DJ HQ S9 D10";
+                return "CK DJ CQ S9 D10";
             case "3 of a kind":
                 return "C8 D2 H8 D9 S8";
             case "2 pairs":
                 return "H4 CJ H6 D6 C4";
+            case "1 pair":
+                return "H2 S4 S5 C5 C6";
             default:
-                return "S2 HJ C9 S4 CQ";
+                return "S2 S6 C9 S4 DQ";
         }
     }
 
