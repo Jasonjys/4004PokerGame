@@ -1,5 +1,23 @@
 Feature: PokerGamePlay
 
+  Scenario Outline: royal flush beats all
+    Given Create a Poker Game Play
+    When "<Player1>" has "<Hand1>"
+    And "<Player2>" has "<Hand2>"
+    Then winner is "<Winner>"
+
+    Examples:
+      | Player1 |    Hand1     | Player2 |     Hand2      | Winner |
+      |   HTB   | royal flush  |   AIP   | straight flush |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  4 of a kind   |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  full house    |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  flush         |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  straight      |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  3 of a kind   |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  2 pairs       |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  1 pair        |  HTB   |
+      |   HTB   | royal flush  |   AIP   |  high card     |  HTB   |
+
   Scenario: royal flush beats straight flush
     Given Create a Poker Game Play
     When HTB has "S10 SK SA SQ SJ"

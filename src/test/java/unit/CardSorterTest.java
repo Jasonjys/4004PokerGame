@@ -1,7 +1,6 @@
 package unit;
 
-import com.comp4004.Card;
-import com.comp4004.CardSorter;
+import com.comp4004.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
