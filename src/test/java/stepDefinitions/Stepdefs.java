@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import com.comp4004.PokerGame;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,11 +19,10 @@ public class Stepdefs {
     @When("^AIP has \"([^\"]*)\"$")
     public void AIPHas(String cards) throws Throwable {
         game.setPlayerHand(1, cards);
-
     }
 
-    @When("^Opponent has \"([^\"]*)\"$")
-    public void opponentHas(String cards) throws Throwable {
+    @When("^HTB has \"([^\"]*)\"$")
+    public void HTBHas(String cards) throws Throwable {
         game.setPlayerHand(0, cards);
     }
 
@@ -42,5 +42,17 @@ public class Stepdefs {
     public void aipWins() throws Throwable {
         game.play(0);
         Assertions.assertTrue(game.getPlayer(1).getWon());
+    }
+
+    @Then("^AIP loses$")
+    public void aipLoses() throws Throwable {
+        game.play(0);
+        Assertions.assertTrue(game.getPlayer(0).getWon());
+    }
+
+    @Then("^AIP gets \"([^\"]*)\" after exchanging$")
+    public void aipGetsFromTheDeck(String cards) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        game.setDeck(cards);
     }
 }

@@ -1,10 +1,11 @@
-package acceptance;
+package cucumber;
 
 import org.junit.runner.RunWith;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="src/test/java/acceptance", glue="stepDefinitions")
+@CucumberOptions(plugin = {"pretty", "html:target/cucumber"}, features="src", glue= "stepDefinitions")
 public class RunCucumberTest {
 }
