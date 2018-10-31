@@ -1,4 +1,4 @@
-Feature: HTB beats AIP / AIP holds and beats HTB
+Feature: Test Beating and Holding
 
   Background:
     Given Create a Poker Game Play

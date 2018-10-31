@@ -1,4 +1,4 @@
-Feature: Both players have the same combination
+Feature: Test Same Combination
 
   Background:
     Given Create a Poker Game Play

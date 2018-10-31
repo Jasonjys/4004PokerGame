@@ -1,10 +1,14 @@
 package cucumber.stepDefinitions;
 
+import com.comp4004.Algorithm;
+import com.comp4004.Card;
 import com.comp4004.PokerGame;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.*;
 
 import org.junit.jupiter.api.*;
+
+import java.util.List;
 
 public class StepDefinitions {
     PokerGame game;
@@ -29,8 +33,6 @@ public class StepDefinitions {
                 return "H4 CJ H6 D6 C4";
             case "1 pair":
                 return "H2 S4 S5 C5 C6";
-            case "high card":
-                return "S2 S6 C9 S4 S7";
             default:
                 return "S2 S6 C9 S4 DQ";
         }
@@ -109,5 +111,47 @@ public class StepDefinitions {
     @Given("^No replacements$")
     public void noReplacements() throws Throwable {
         game.setDeck("[]");
+    }
+
+    @Given("^player \"([^\"]*)\"$")
+    public void givenPlayerCards(String cards) throws Throwable {
+        game.setPlayerHand(0, cards);
+    }
+
+    @Then("^\"([^\"]*)\" is detected$")
+    public void detectHand(String hand) throws Throwable {
+        List<Card> playerHand = game.getPlayer(0).getHand();
+        switch (hand) {
+            case "royal flush":
+                Assertions.assertTrue(Algorithm.isRoyalFlush(playerHand).isMatched());
+                break;
+            case "straight flush":
+                Assertions.assertTrue(Algorithm.isStraightFlush(playerHand).isMatched());
+                break;
+            case "4 of a kind":
+                Assertions.assertTrue(Algorithm.isFourOfAKind(playerHand).isMatched());
+                break;
+            case "full house":
+                Assertions.assertTrue(Algorithm.isFullHouse(playerHand).isMatched());
+                break;
+            case "flush":
+                Assertions.assertTrue(Algorithm.isFlush(playerHand).isMatched());
+                break;
+            case "straight":
+                Assertions.assertTrue(Algorithm.isStraight(playerHand).isMatched());
+                break;
+            case "3 of a kind":
+                Assertions.assertTrue(Algorithm.isThreeOfAKind(playerHand).isMatched());
+                break;
+            case "2 pairs":
+                Assertions.assertTrue(Algorithm.isTwoPair(playerHand).isMatched());
+                break;
+            case "1 pair":
+                Assertions.assertTrue(Algorithm.isOnePair(playerHand).isMatched());
+                break;
+            default:
+                Assertions.assertTrue(Algorithm.isHighCard(playerHand).isMatched());
+                break;
+        }
     }
 }

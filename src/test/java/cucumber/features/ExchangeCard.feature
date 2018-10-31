@@ -1,4 +1,4 @@
-Feature: Play exchanges the correct cards
+Feature: Test Strategies
 
   Background:
     Given Create a Poker Game Play
