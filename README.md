@@ -6,3 +6,6 @@
 
 ### To Run All Tests
 1. `mvn test`
+
+####Assignment2 Screenshots
+screenshots for cucumber tests are under `/screenshots`
