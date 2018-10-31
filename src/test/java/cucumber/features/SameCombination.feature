@@ -49,12 +49,6 @@ Feature: Test Same Combination
     And AIP has "SJ HJ S8 D8 H2"
     Then AIP wins
 
-  Scenario: Both HTB and AIP have 2 pairs with the same highest pair, highest suit of this highest pairs wins
-    Given No replacements
-    When HTB has "C9 S9 CJ DJ SQ"
-    And AIP has "SJ HJ S8 D8 H2"
-    Then AIP wins
-
   Scenario: Both HTB and AIP have 2 pairs with distinct highest pairs, highest rank of this highest pairs wins
     Given No replacements
     When HTB has "C9 S9 H10 S10 SQ"
