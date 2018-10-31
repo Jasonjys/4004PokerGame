@@ -8,16 +8,16 @@ public class PokerGame {
     private Queue<Card> deck;
 
     public PokerGame (String cards) {
-        this.playerList = new ArrayList<Player>();
-        this.deck = new LinkedList <Card>();
+        this.playerList = new ArrayList<>();
+        this.deck = new LinkedList<>();
         this.playerList.add(new Player());
         this.playerList.add(new Player());
         setUpCards(cards);
     }
 
     public PokerGame () {
-        this.playerList = new ArrayList<Player>();
-        this.deck = new LinkedList <Card>();
+        this.playerList = new ArrayList<>();
+        this.deck = new LinkedList<>();
         this.playerList.add(new Player());
         this.playerList.add(new Player());
     }
@@ -58,10 +58,10 @@ public class PokerGame {
     }
 
     public void setDeck (String cards) {
-        if (cards.length() == 0) {
+        getDeck().clear();
+        if (cards.equals("[]")) {
             return;
         }
-        getDeck().clear();
         String[] cardArray = cards.split("\\s+");
         for (String card :  cardArray) {
             getDeck().add(new Card(card));

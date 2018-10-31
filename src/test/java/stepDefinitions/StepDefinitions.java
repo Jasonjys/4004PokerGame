@@ -20,7 +20,7 @@ public class StepDefinitions {
             case "full house":
                 return "CA D5 H5 DA HA";
             case "flush":
-                return "D8 D7 D4 D7 DK";
+                return "D8 D7 D4 DQ DK";
             case "straight":
                 return "CK DJ CQ S9 D10";
             case "3 of a kind":
@@ -29,6 +29,8 @@ public class StepDefinitions {
                 return "H4 CJ H6 D6 C4";
             case "1 pair":
                 return "H2 S4 S5 C5 C6";
+            case "high card":
+                return "S2 S6 C9 S4 S7";
             default:
                 return "S2 S6 C9 S4 DQ";
         }
@@ -49,40 +51,10 @@ public class StepDefinitions {
         game.setPlayerHand(0, cards);
     }
 
-    @Then("^AIP does not exchange any of its cards$")
-    public void aipDoesNotExchangeAnyOfItsCards() throws Throwable {
-        String discardCards = game.getPlayer(1).discardCards().toString();
-        Assertions.assertEquals(discardCards, "[]");
-    }
-
-    @Then("^AIP exchanges \"([^\"]*)\"$")
-    public void aipExchangesCards(String card) throws Throwable {
-        String discardCards = game.getPlayer(1).discardCards().toString();
-        Assertions.assertEquals(discardCards, card);
-    }
-
     @Then("^AIP wins")
     public void aipWins() throws Throwable {
         game.play(0);
         Assertions.assertTrue(game.getPlayer(1).getWon());
-    }
-
-    @Then("^AIP loses$")
-    public void aipLoses() throws Throwable {
-        game.play(0);
-        Assertions.assertTrue(game.getPlayer(0).getWon());
-    }
-
-    @Then("^HTB wins")
-    public void htbWins() throws Throwable {
-        game.play(0);
-        Assertions.assertTrue(game.getPlayer(0).getWon());
-    }
-
-    @Then("^AIP gets \"([^\"]*)\" after exchanging$")
-    public void aipGetsFromTheDeck(String cards) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        game.setDeck(cards);
     }
 
     @When("^\"([^\"]*)\" has \"([^\"]*)\"$")
@@ -94,7 +66,7 @@ public class StepDefinitions {
         }
     }
 
-    @Then("^winner is \"([^\"]*)\"$")
+    @Then("^The winner is \"([^\"]*)\"$")
     public void winnerIs(String player) throws Throwable {
         game.play(0);
         if (player.equals("AIP")) {
@@ -102,5 +74,40 @@ public class StepDefinitions {
         } else {
             Assertions.assertTrue(game.getPlayer(0).getWon());
         }
+    }
+
+    @Then("^\"([^\"]*)\" holds$")
+    public void holds(String player) throws Throwable {
+        if (player.equals("AIP")) {
+            String discardCards = game.getPlayer(1).discardCards().toString();
+            Assertions.assertEquals(discardCards, "[]");
+        }
+    }
+
+    @Then("^\"([^\"]*)\" discards \"([^\"]*)\"$")
+    public void discards(String player, String cards) throws Throwable {
+        if (player.equals("AIP")) {
+            String discardCards = game.getPlayer(1).discardCards().toString();
+            Assertions.assertEquals(discardCards, cards);
+        }
+    }
+
+    @When("^\"([^\"]*)\" has \"([^\"]*)\" \"([^\"]*)\"$")
+    public void has(String player, String hand, String cards) throws Throwable {
+        if (player.equals("AIP")) {
+            game.setPlayerHand(1, cards);
+        } else {
+            game.setPlayerHand(0, cards);
+        }
+    }
+
+    @When("^Replacement is \"([^\"]*)\"$")
+    public void replacement(String replacement) throws Throwable {
+        game.setDeck(replacement);
+    }
+
+    @Given("^No replacements$")
+    public void noReplacements() throws Throwable {
+        game.setDeck("[]");
     }
 }
