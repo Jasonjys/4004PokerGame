@@ -3,7 +3,7 @@ Feature: Test Strategies
   Background:
     Given Create a Poker Game Play
 
-  Scenario Outline: <Player1> has <Hand1>, exchanges the correct card and wins/loses with/without getting the hand it wants
+  Scenario Outline: <Player1> has <Hand1>, exchanges that card and wins/loses with/without getting the hand it wants
     When "<Player1>" has "<Hand1>" "<cards>"
     And "<Player2>" has "<Hand2>"
     And Replacement is "<Replacement>"
