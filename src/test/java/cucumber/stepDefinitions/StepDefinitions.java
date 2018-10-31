@@ -1,4 +1,4 @@
-package stepDefinitions;
+package cucumber.stepDefinitions;
 
 import com.comp4004.PokerGame;
 import cucumber.api.PendingException;
